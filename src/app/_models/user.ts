@@ -5,4 +5,6 @@
     firstName: string;
     lastName: string;
     token: string;
+    code: string;
+    platforms: any[];
 }

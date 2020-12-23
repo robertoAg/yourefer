@@ -1,7 +1,9 @@
 <!-- nav -->
 <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user; else elseBlock">
     <div class="navbar-nav">
+        <h2 class="title">YouRefer</h2>
         <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <a class="nav-item nav-link" routerLink="/platforms" routerLinkActive="active">Platforms</a>
         <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
         <a class="nav-item nav-link" (click)="logout()">Logout</a>
     </div>

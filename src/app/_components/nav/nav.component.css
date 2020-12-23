@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'League Gothic';
+    src: url('../../../assets/fonts/LeagueGothic-1.601/static/OTF/LeagueGothic-Regular.otf'); 
+}
+
+.title{ font-family: 'League Gothic'; }

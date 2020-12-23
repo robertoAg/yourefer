@@ -4,5 +4,7 @@ export class Platform {
     skuname: string;
     web: string;
     defaultLink: string;
-    claim: string;
+    validation: string;
+    description: string;
+    categories: Array<string>;
 }

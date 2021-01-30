@@ -1,8 +1,13 @@
 <div class="p-4">
     <div class="container">
-        <h1>Hi {{user.firstName}}!</h1>
-        <h1>code: {{user.code}}!</h1>
-        <p>You're logged in with Angular 10!!</p>
-        <p><a routerLink="/users">Manage Users</a></p>
+        <div *ngIf="user">
+            <h1>Hi {{user.firstName}}!</h1>
+            <h1>code: {{user.code}}!</h1>
+            <p>You're logged in with Angular 10!!</p>
+            <p><a routerLink="/users">Manage Users</a></p>
+        </div>
+        <div>
+            YouRefer is a platform where you can recommend platforms and earn money referring people.
+        </div>
     </div>
 </div>

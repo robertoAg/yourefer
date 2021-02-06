@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LayoutComponent } from './layout.component';
-import { ListComponent } from './list.component';
+import { PlatformsComponent } from './platforms.component';
 
 const routes: Routes = [
     {
         path: '', component: LayoutComponent,
         children: [
-            { path: '', component: ListComponent },
-            { path: 'listcode/:code', component: ListComponent },
+            { path: '', component: PlatformsComponent },
+            { path: 'listcode/:code', component: PlatformsComponent },
         ]
     }
 ];

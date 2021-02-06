@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutComponent } from './layout.component';
-import { ListComponent } from './list.component';
+import { PlatformsComponent } from './platforms.component';
 import { PlatformsRoutingModule } from './platforms-routing.module';
 
 @NgModule({
@@ -14,7 +14,7 @@ import { PlatformsRoutingModule } from './platforms-routing.module';
     ],
     declarations: [
         LayoutComponent,
-        ListComponent
+        PlatformsComponent
     ]
 })
 export class PlatformsModule { }

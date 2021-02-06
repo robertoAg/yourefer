@@ -4,7 +4,7 @@
     <thead>
         <tr>
             <th style="width: 30%">First Name</th>
-            <th style="width: 30%">Last Name</th>
+            <th style="width: 30%">Code</th>
             <th style="width: 30%">Username</th>
             <th style="width: 10%"></th>
         </tr>
@@ -12,9 +12,10 @@
     <tbody>
         <tr *ngFor="let user of users">
             <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
+            <td>{{user.code}}</td>
             <td>{{user.username}}</td>
             <td style="white-space: nowrap">
+                <a routerLink="../list/{{user.code}}" class="btn btn-sm btn-primary mr-1">List</a>
                 <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
                 <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
                     <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>

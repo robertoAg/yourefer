@@ -1,0 +1,62 @@
+﻿<h1>Platforms</h1>
+<div class="container">
+    <div class="row platform-row" *ngFor="let platform of platforms"
+        [ngClass]="{'present': platform.link, 'adding': platform.addingLink, 'editing': platform.editingLink}">
+        <div class="col-sm-12 col-lg-3">
+            <h5 class="text-center text-capitalize">{{platform.name}}</h5>
+            <img class="logo-platform img-thumbnail" src="assets/img/platforms/{{platform.skuname}}/icon.jpg">
+        </div>
+        <div class="col-sm-12 col-lg-9">
+            <div class="description text-center">
+                {{platform.description}}
+            </div>
+            <div class="link-go text-center">
+                <a *ngIf="platform.link" class="btn btn-success" href="{{platform.link}}">Go</a>
+                <a *ngIf="!platform.link" class="btn btn-success" href="{{platform.defaultLink}}">Go</a>
+            </div>
+            <div class="link-add">
+                <button [ngClass]="{'open': platform.addingLink}" class="btn btn-primary btn-add-link"
+                    *ngIf="!platform.linkOnInit" (click)="platform.addingLink = !platform.addingLink"><span
+                        *ngIf="platform.addingLink">x</span>Add</button>
+                <button [ngClass]="{'open': platform.editingLink}" class="btn btn-warning btn-edit-link"
+                    *ngIf="platform.linkOnInit" (click)="platform.editingLink = !platform.editingLink"><span
+                        *ngIf="platform.editingLink">x</span>Edit</button>
+            </div>
+        </div>
+
+        <div class="col-12 col-add-link"
+            *ngIf="(!platform.linkOnInit && platform.addingLink) || platform.linkOnInit && platform.editingLink">
+            <label>My link</label>
+            <input type="text" class="form-control" (focus)="edit(platform)" (change)="validate(platform)"
+                [(ngModel)]="platform.link" [ngModelOptions]="{standalone: true}" [compareWith]="compareFn">
+            <p *ngIf="platform.isValid === false && platform.link !== ''" class="info-error">
+                Link must start by {{platform.validation}}
+            </p>
+            <button class="btn btn-danger btn-save-link"
+                (click)="platform.editingLink = false; platform.addingLink = false">Cancel</button>
+            <button class="btn btn-success btn-save-link" [disabled]="!platform.isValid"
+                (click)="savePlatformLink(platform)">Save</button>
+        </div>
+    </div>
+</div>
+<table class="table table-striped d-none">
+    <thead>
+        <tr>
+            <th style="width: 30%">Name</th>
+            <th style="width: 30%">Default Link</th>
+            <th style="width: 30%">Link</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let platform of platforms">
+            <td>{{platform.name}}</td>
+            <td>{{platform.defaultLink}}</td>
+            <td>{{platform.link}}</td>
+        </tr>
+        <tr *ngIf="!platforms">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

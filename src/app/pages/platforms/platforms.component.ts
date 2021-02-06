@@ -7,10 +7,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@app/_models';
 
 @Component({
-    templateUrl: 'list.component.html',
-    styleUrls: ['list.component.css']
+    templateUrl: 'platforms.component.html',
+    styleUrls: ['platforms.component.css']
 })
-export class ListComponent implements OnInit {
+export class PlatformsComponent implements OnInit {
     user: User;
     code: string;
     form: FormGroup;
@@ -65,7 +65,6 @@ export class ListComponent implements OnInit {
 
     // tslint:disable-next-line:typedef
     savePlatformLink(platform) {
-        console.log(this.user);
         if (!this.user.platforms) {
             this.user.platforms = [];
         }
@@ -80,7 +79,6 @@ export class ListComponent implements OnInit {
                 link: platform.link
             });
         }
-        console.log(this.user);
         this.saveUser();
     }
 

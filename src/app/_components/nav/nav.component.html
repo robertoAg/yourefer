@@ -1,20 +1,30 @@
-<!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user; else elseBlock">
-    <div class="navbar-nav">
-      <h2><a class="title nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><span class="c-red">You</span><span class="c-white">Refer</span></a></h2>
-        <a class="nav-item nav-link mt-2" routerLink="/platforms" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Platforms</a>
-        <a class="nav-item nav-link mt-2" routerLink="/list/{{user.code}}" routerLinkActive="active"  [routerLinkActiveOptions]="{exact: true}">{{user.username}}</a>
-        <a class="nav-item nav-link mt-2" routerLink="/users" routerLinkActive="active">Users</a>
-        <a class="nav-item nav-link mt-2" (click)="logout()">Logout</a>
-    </div>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <h2><a class="title nav-item nav-link" (click)="isCollapsed = !isCollapsed" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><span class="c-red">You</span><span class="c-white">Refer</span></a></h2>
+  <button class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarsExampleDefault" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault" [ngbCollapse]="isCollapsed">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-item nav-link" (click)="isCollapsed = !isCollapsed" routerLink="/platforms" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Platforms</a>
+      </li>
+      <li class="nav-item">
+        <!-- <span class="nav-promo-text">Promo</span> -->
+        <a class="nav-item nav-link" (click)="isCollapsed = !isCollapsed" routerLink="/users" routerLinkActive="active">First Users</a>
+      </li>
+      <li class="nav-item" *ngIf="user">
+        <a class="nav-item nav-link" (click)="isCollapsed = !isCollapsed" routerLink="/list/{{user.code}}" routerLinkActive="active"  [routerLinkActiveOptions]="{exact: true}">{{user.username}}</a>
+      </li>
+      <li class="nav-item" *ngIf="user">
+        <a class="nav-item nav-link" (click)="isCollapsed = !isCollapsed; logout()">Logout</a>
+      </li>
+      <li class="nav-item" *ngIf="!user">
+        <a class="nav-item nav-link" (click)="isCollapsed = !isCollapsed" routerLink="/account/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="!user">
+        <a class="nav-item nav-link" (click)="isCollapsed = !isCollapsed" routerLink="/account/register" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Register</a>
+      </li>
+    </ul>
+  </div>
 </nav>
-<ng-template #elseBlock>
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
-        <div class="navbar-nav">
-            <h2><a class="title nav-item nav-link mt-2" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><span class="c-red">You</span><span class="c-white">Refer</span></a></h2>
-            <a class="nav-item nav-link mt-2" routerLink="/users" routerLinkActive="active">Users</a>
-            <a class="nav-item nav-link mt-2" routerLink="/account/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
-            <a class="nav-item nav-link mt-2" routerLink="/account/register" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Register</a>
-        </div>
-    </nav>
-</ng-template>

@@ -1,4 +1,4 @@
-﻿<h1>Platforms</h1>
+﻿<h1 class="text-center c-white"><span class="c-red">All </span>Platforms</h1>
 <div class="container">
     <div class="row platform-row" *ngFor="let platform of platforms"
         [ngClass]="{'present': platform.link, 'adding': platform.addingLink, 'editing': platform.editingLink}">
@@ -13,14 +13,6 @@
             <div class="link-go text-center">
                 <a *ngIf="platform.link" class="btn btn-success" href="{{platform.link}}">Go</a>
                 <a *ngIf="!platform.link" class="btn btn-success" href="{{platform.defaultLink}}">Go</a>
-            </div>
-            <div class="link-add">
-                <button [ngClass]="{'open': platform.addingLink}" class="btn btn-primary btn-add-link"
-                    *ngIf="!platform.linkOnInit" (click)="platform.addingLink = !platform.addingLink"><span
-                        *ngIf="platform.addingLink">x</span>Add</button>
-                <button [ngClass]="{'open': platform.editingLink}" class="btn btn-warning btn-edit-link"
-                    *ngIf="platform.linkOnInit" (click)="platform.editingLink = !platform.editingLink"><span
-                        *ngIf="platform.editingLink">x</span>Edit</button>
             </div>
         </div>
 

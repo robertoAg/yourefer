@@ -12,6 +12,7 @@ import { AccountService } from '@app/_services';
 
 export class NavComponent{
     user: User;
+    isCollapsed = true;
 
     constructor(private accountService: AccountService) {
         this.accountService.user.subscribe(x => this.user = x);

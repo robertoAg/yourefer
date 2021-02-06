@@ -5,9 +5,6 @@
 
 .title{ font-family: 'League Gothic'; }
 
-.c-red{
-  color: #cc2222;
-}
-.c-white{
-  color: #ffffff;
+a.nav-item.nav-link.active {
+  border-bottom: rgb(151, 44, 36) 1px solid;
 }

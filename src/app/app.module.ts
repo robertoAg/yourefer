@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { NavComponent, AlertComponent } from './_components';
 import { FormsModule } from '@angular/forms';
 
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbCollapseModule
   ],
   providers: [
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

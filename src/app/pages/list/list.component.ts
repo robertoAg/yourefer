@@ -61,7 +61,7 @@ export class ListComponent implements OnInit {
   addLink(platforms) {
     platforms.forEach(platform => {
       let userPlatform;
-      if (this.user.platforms) {
+      if (this.userByCode.platforms) {
         userPlatform = this.userByCode.platforms.find(uP => {
           return uP.skuname === platform.skuname;
         });

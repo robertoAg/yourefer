@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
   </div>
   `,
   styles: [`.app-container{
-    margin-top: 75px;
+    margin-top: 90px;
   }`]
 })
 export class AppComponent {

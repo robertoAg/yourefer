@@ -22,7 +22,7 @@ const routes: Routes = [
         ],
     },
     { path: 'list', loadChildren: listModule },
-    { path: 'platforms', loadChildren: platformsModule, canActivate: [AuthGuard] },
+    { path: 'platforms', loadChildren: platformsModule },
     { path: 'users', loadChildren: usersModule },
     { path: 'account', loadChildren: accountModule },
     { path: '**', redirectTo: '' },

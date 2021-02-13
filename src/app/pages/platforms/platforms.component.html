@@ -1,4 +1,4 @@
-﻿<h1 class="text-center c-white"><span class="c-red">All </span>Platforms</h1>
+﻿<h1 class="text-center c-white title"><span class="c-red">All </span><span class="t-shadow">Platforms</span></h1>
 <div class="container">
     <div class="row platform-row" *ngFor="let platform of platforms"
         [ngClass]="{'present': platform.link, 'adding': platform.addingLink, 'editing': platform.editingLink}">
@@ -7,12 +7,12 @@
             <img class="logo-platform img-thumbnail" src="assets/img/platforms/{{platform.skuname}}/icon.jpg">
         </div>
         <div class="col-sm-12 col-lg-9">
-            <div class="description text-center">
+            <div class="description text-center m-3">
                 {{platform.description}}
             </div>
             <div class="link-go text-center">
-                <a *ngIf="platform.link" class="btn btn-success" href="{{platform.link}}">Go</a>
-                <a *ngIf="!platform.link" class="btn btn-success" href="{{platform.defaultLink}}">Go</a>
+              <a *ngIf="platform.link" class="btn btn-success btn-visit px-5" href="{{platform.link}}">Visit</a>
+              <a *ngIf="!platform.link" class="btn btn-success btn-visit px-5" href="{{platform.defaultLink}}">Visit</a>
             </div>
         </div>
 

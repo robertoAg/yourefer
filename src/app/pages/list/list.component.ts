@@ -33,28 +33,36 @@ export class ListComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   ngOnInit() {
-    this.code = this.route.snapshot.params.code;
+
+    // tslint:disable-next-line:no-shadowed-variable
+    this.route.params.subscribe(routeParams => {
+      this.loadByCode(routeParams.code);
+    });
+
+    this.accountService.user.subscribe(x => this.user = x);
+
+  }
+
+  // tslint:disable-next-line:typedef
+  loadByCode(code){
     this.userService
-      .getByCode(this.code)
+      .getByCode(code)
       .subscribe(
         val => {
           console.log('Value emitted successfully', val);
           this.userByCode = (val) ? val : {};
-          if (this.userByCode && this.user.username === this.userByCode.username) {
+          if (this.userByCode && this.user && this.user.username === this.userByCode.username) {
             this.canEdit = true;
           }
+          this.platformService.getAll()
+            .pipe(first())
+            .subscribe(platforms => this.platforms = this.addLink(platforms));
         },
         error => {
           console.error('This line is never called ', error);
         },
         () => console.log('HTTP Observable completed...')
       );
-
-    this.accountService.user.subscribe(x => this.user = x);
-
-    this.platformService.getAll()
-      .pipe(first())
-      .subscribe(platforms => this.platforms = this.addLink(platforms));
   }
 
   // tslint:disable-next-line:typedef

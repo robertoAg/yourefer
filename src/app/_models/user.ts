@@ -6,4 +6,5 @@
     token: string;
     code: string;
     platforms: any[];
+    referredBy: string;
 }

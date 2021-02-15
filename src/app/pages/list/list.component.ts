@@ -44,7 +44,7 @@ export class ListComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
-  loadByCode(code){
+  loadByCode(code) {
     this.userService
       .getByCode(code)
       .subscribe(
@@ -53,6 +53,9 @@ export class ListComponent implements OnInit {
           this.userByCode = (val) ? val : {};
           if (this.userByCode && this.user && this.user.username === this.userByCode.username) {
             this.canEdit = true;
+          }
+          if (!sessionStorage.getItem('referredBy')) {
+            sessionStorage.setItem('referredBy', this.userByCode.username);
           }
           this.platformService.getAll()
             .pipe(first())

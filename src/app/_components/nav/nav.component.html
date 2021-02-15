@@ -1,11 +1,14 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <h2><a class="title nav-item nav-link" (click)="isCollapsed = !isCollapsed" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><span class="c-red">You</span><span class="c-white">Refer</span></a></h2>
+  <h2><a class="title nav-item nav-link" (click)="isCollapsed = true" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><span class="c-red">You</span><span class="c-white">Refer</span></a></h2>
   <button class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarsExampleDefault" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault" [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-item nav-link" (click)="isCollapsed = !isCollapsed" routerLink="/what" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">What is?</a>
+      </li>
       <li class="nav-item">
         <a class="nav-item nav-link" (click)="isCollapsed = !isCollapsed" routerLink="/platforms" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Platforms</a>
       </li>

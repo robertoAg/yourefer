@@ -27,7 +27,7 @@ export class VerifyComponent implements OnInit {
       .subscribe({
         next: () => {
           this.alertService.success('Verification successful, you can now login', { keepAfterRouteChange: true });
-          this.router.navigate(['../login'], { relativeTo: this.route });
+          this.router.navigate(['/account/login'], { relativeTo: this.route });
         },
         error: () => {
           this.alertService.error('Verification failed');

@@ -62,24 +62,3 @@
     </div>
   </div>
 </div>
-<table class="table table-striped d-none">
-  <thead>
-    <tr>
-      <th style="width: 30%">Name</th>
-      <th style="width: 30%">Default Link</th>
-      <th style="width: 30%">Link</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let platform of platforms">
-      <td>{{platform.name}}</td>
-      <td>{{platform.defaultLink}}</td>
-      <td>{{platform.link}}</td>
-    </tr>
-    <tr *ngIf="!platforms">
-      <td colspan="4" class="text-center">
-        <span class="spinner-border spinner-border-lg align-center"></span>
-      </td>
-    </tr>
-  </tbody>
-</table>

@@ -18,7 +18,7 @@ body{
   color: rgb(36, 151, 113);
 }
 .c-red {
-  color: rgb(151, 44, 36);
+  color: rgb(151, 44, 36) !important;
 }
 .c-white{
   color: #ffffff;
@@ -28,4 +28,10 @@ body{
 }
 .t-shadow{
   text-shadow: 0 0 2px black;
+}
+.ts-white{
+  text-shadow: 0 0 2px white;
+}
+.fs-13{
+  font-size: 13px;
 }

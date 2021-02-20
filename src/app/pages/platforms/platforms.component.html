@@ -11,8 +11,8 @@
                 {{platform.description}}
             </div>
             <div class="link-go text-center">
-              <a *ngIf="platform.link" class="btn btn-success btn-visit px-5" href="{{platform.link}}">Visit</a>
-              <a *ngIf="!platform.link" class="btn btn-success btn-visit px-5" href="{{platform.defaultLink}}">Visit</a>
+              <a *ngIf="platform.link" class="btn btn-success btn-visit px-5" href="{{platform.link}}" target="_blank">Visit</a>
+              <a *ngIf="!platform.link" class="btn btn-success btn-visit px-5" href="{{platform.defaultLink}}" target="_blank">Visit</a>
             </div>
         </div>
 

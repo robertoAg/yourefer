@@ -11,10 +11,20 @@
 .f-promo {
   font-family: "Promo";
 }
-
-.bgc-red {
-  background-color: #972c24cc;
+.container-promo h3{
+  background: linear-gradient(to right, rgb(255 255 255 / 0%) 0%, rgb(255 255 255 / 75%) 50%, rgb(255 255 255 / 0%) 100%);
 }
-.bgc-white{
-  background-color: #ffffff8c;
+
+.btn-custom{
+  color: #fff;
+}
+.btn-custom, .btn-custom:hover, .btn-custom:active, .btn-custom:focus, .btn-custom{
+  color: #fff;
+  background-color: rgb(131, 59, 59) !important;
+  border-color: #bb908c !important;
+  box-shadow: none !important;
+}
+a{
+  cursor: pointer;
+  text-decoration: underline;
 }

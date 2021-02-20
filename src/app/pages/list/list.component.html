@@ -1,64 +1,126 @@
-﻿<h1 class="text-center c-red">The list of <span class="c-white t-shadow" *ngIf="userByCode">{{userByCode.username}}</span></h1>
+﻿<h1 *ngIf="!canEdit" class="text-center c-red">The list of <span class="c-white t-shadow"
+    *ngIf="userByCode">{{userByCode.username}}</span></h1>
+<h1 *ngIf="canEdit" class="text-center c-red">My <span class="c-white t-shadow" *ngIf="userByCode">List</span></h1>
 <div class="container">
-  <div class="row platform-row" *ngFor="let platform of platforms"
-    [ngClass]="{'present': platform.link, 'adding': platform.addingLink, 'editing': platform.editingLink}">
-    <div class="col-12">
-      <div class="text-right c-blue mt--1" *ngIf="canEdit && platform.linkOnInit">
-        Already on my list
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle"
-          viewBox="0 0 16 16">
-          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-          <path
-            d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
-        </svg>
+  <form [formGroup]="platformsForm">
+    <div class="row platform-row" *ngFor="let platform of platforms; let i = index"
+      [ngClass]="{'present': platform.link, 'adding': platform.addingLink, 'editing': platform.editingLink}">
+      <div class="col-12">
+        <div class="text-right c-blue mt--1" *ngIf="canEdit && platform.linkOnInit">
+          <div>
+            <span *ngIf="!platform.editingLink" (click)="platform.editingLink = !platform.editingLink"
+              class="edit-btn px-1">
+              Edit
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+              </svg>
+            </span>
+            <span *ngIf="platform.editingLink" (click)="platform.editingLink = !platform.editingLink"
+              class="close-edit-btn px-1 c-red">
+              Editing
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle"
+                viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path
+                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+              </svg>
+            </span>
+          </div>
+        </div>
+        <div class="text-right c-green mt--1" *ngIf="canEdit && !platform.linkOnInit"
+          (click)="platform.addingLink = !platform.addingLink">
+          <span *ngIf="platform.addingLink" class="close-add-btn px-1 c-red">
+            Adding
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle"
+              viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+              <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+            </svg>
+          </span>
+          <span *ngIf="!platform.addingLink" class="add-btn px-1">
+            Add
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle"
+              viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+              <path
+                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+            </svg>
+          </span>
+        </div>
       </div>
-      <div class="text-right c-green mt--1" *ngIf="canEdit && !platform.linkOnInit"
-        (click)="platform.addingLink = !platform.addingLink">
-        <span *ngIf="platform.addingLink" class="close-add-btn px-1 c-red">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle"
+      <div class="col-sm-12 col-lg-3 lg-mt--1 mb-2 text-center">
+        <h5 class="text-capitalize">{{platform.name}}</h5>
+        <img class="logo-platform img-thumbnail" src="assets/img/platforms/{{platform.skuname}}/icon.jpg">
+        <span class="my-1 c-blue fs-13" *ngIf="canEdit && platform.linkOnInit">
+          Already on my list
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-check-circle"
             viewBox="0 0 16 16">
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
             <path
-              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-          </svg>
-        </span>
-        <span *ngIf="!platform.addingLink" class="add-btn px-1">
-          Add
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle"
-            viewBox="0 0 16 16">
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-            <path
-              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+              d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
           </svg>
         </span>
       </div>
-    </div>
-    <div class="col-sm-12 col-lg-3 lg-mt--1 mb-2">
-      <h5 class="text-center text-capitalize">{{platform.name}}</h5>
-      <img class="logo-platform img-thumbnail" src="assets/img/platforms/{{platform.skuname}}/icon.jpg">
-    </div>
-    <div class="col-sm-12 col-lg-9">
-      <div class="description text-center m-3">
-        {{platform.description}}
+      <div class="col-sm-12 col-lg-9">
+        <div class="description text-center m-3">
+          {{platform.description}}
+        </div>
+        <div class="link-go text-center">
+          <a *ngIf="platform.link" class="btn btn-success btn-visit px-5" href="{{platform.link}}"
+            target="_blank">Visit</a>
+          <a *ngIf="!platform.link" class="btn btn-success btn-visit px-5" href="{{platform.defaultLink}}"
+            target="_blank">Visit</a>
+        </div>
       </div>
-      <div class="link-go text-center">
-        <a *ngIf="platform.link" class="btn btn-success btn-visit px-5" href="{{platform.link}}">Visit</a>
-        <a *ngIf="!platform.link" class="btn btn-success btn-visit px-5" href="{{platform.defaultLink}}">Visit</a>
-      </div>
-    </div>
 
-    <div class="col-12 col-add-link"
-      *ngIf="(!platform.linkOnInit && platform.addingLink) || platform.linkOnInit && platform.editingLink">
-      <label>My link</label>
-      <input type="text" class="form-control" (focus)="edit(platform)" (change)="validate(platform)"
-        [(ngModel)]="platform.link" [ngModelOptions]="{standalone: true}" [compareWith]="compareFn">
-      <p *ngIf="platform.isValid === false && platform.link !== ''" class="info-error">
-        Link must start by {{platform.validation}}
-      </p>
-      <button class="btn btn-danger btn-save-link"
-        (click)="platform.editingLink = false; platform.addingLink = false">Cancel</button>
-      <button class="btn btn-success btn-save-link" [disabled]="!platform.isValid"
-        (click)="savePlatformLink(platform)">Save</button>
+      <div class="col-12 col-add-link"
+        *ngIf="platformsForm && platformsForm.controls[i] && ((!platform.linkOnInit && platform.addingLink) || platform.linkOnInit && platform.editingLink)">
+        <div [formGroup]="platformsForm.controls[i]">
+          <label>My link</label>
+          <input type="text" formControlName="link" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && platformsForm.controls[i].controls.link && platformsForm.controls[i].controls.link.errors }" />
+          <div *ngIf="submitted && platformsForm.controls[i].controls.link && platformsForm.controls[i].controls.link.errors"
+            class="invalid-feedback">
+            <div *ngIf="platformsForm.controls[i].controls.link.errors.pattern">{{ platform.validation | parseValidationPipe }}</div>
+          </div>
+          <div class="btn btn-success btn-save-link" (click)="savePlatformLink(platform, i)">Save</div>
+<!--
+          <input type="text" class="form-control" (focus)="edit(platform)" (change)="validate(platform)"
+            [(ngModel)]="platform.link" [ngModelOptions]="{standalone: true}" [compareWith]="compareFn">
+
+          <p *ngIf="platform.isValid === false && platform.link !== ''" class="info-error">
+            Link must start by {{platform.validation}}
+          </p>
+          <button class="btn btn-danger btn-save-link"
+            (click)="platform.editingLink = false; platform.addingLink = false">Cancel</button>
+          <button class="btn btn-success btn-save-link" [disabled]="!platform.isValid">Save</button>
+-->
+        </div>
+      </div>
     </div>
-  </div>
+  </form>
 </div>
+<!--
+<form [formGroup]="platformsForm" (ngSubmit)="onSubmit()">
+  <ng-container *ngFor="let platformFormGroup of platformsForm.controls; let i = index">
+    <div [formGroup]="platformFormGroup" class="form-group">
+      <label>
+        My link:
+        <input type="text" formControlName="link" class="form-control" [ngClass]="{ 'is-invalid': submitted && platformFormGroup.controls.link.errors }" />
+        <div *ngIf="submitted && platformFormGroup.controls.link.errors" class="invalid-feedback">
+            <div *ngIf="platformFormGroup.controls.link.errors.required">Password is required</div>
+        </div>
+      </label>
+      <label>
+        <button (click)="removeFormControl(i)">remove formGroup</button>
+      </label>
+    </div>
+  </ng-container>
+  <button type="submit">console log form value</button>
+</form>
+-->

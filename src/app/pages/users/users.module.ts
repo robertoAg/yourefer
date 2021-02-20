@@ -16,7 +16,7 @@ import { AddEditComponent } from './add-edit.component';
     declarations: [
         LayoutComponent,
         ListComponent,
-        AddEditComponent
+        AddEditComponent,
     ]
 })
 export class UsersModule { }

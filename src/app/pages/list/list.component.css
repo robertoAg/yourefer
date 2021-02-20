@@ -4,6 +4,7 @@
   border-radius: 5px;
   padding: 15px 0 5px;
   margin: 15px 0;
+  transition: 0.5s;
 }
 .platform-row.present {
   border: 3px solid #316d39a6;
@@ -67,11 +68,14 @@
   float: right;
 }
 .btn-visit{
-  background-color: rgb(131, 59, 59);
-  border-color: #bb908c;
   font-size: bold;
   padding-left: 20px;
   padding-right: 20px;
+}
+.btn-visit, .btn-visit:hover, .btn-visit:active, .btn-visit:focus, .btn-visit{
+  background-color: rgb(131, 59, 59) !important;
+  border-color: #bb908c !important;
+  box-shadow: none !important;
 }
 .mt--1 {
   margin-top: -10px;
@@ -84,10 +88,28 @@
 .add-btn,
 .close-add-btn {
   cursor: pointer;
-  border: 2px dashed rgba(201, 201, 201, 0.466);
+  border: 2px dashed rgb(86 152 116);
   border-radius: 3px;
+  padding-bottom: 4px;
 }
+.close-add-btn{
+  border-color: #833b3b;
+}
+
 .add-btn .bi-plus-circle,
 .close-add-btn .bi-x-circle {
-  margin-top: -5px;
+  margin-top: -2px;
+}
+.edit-btn,
+.close-edit-btn{
+  cursor: pointer;
+  border: 2px dashed rgb(102 158 182);
+  border-radius: 3px;
+  padding-bottom: 4px;
+}
+.close-edit-btn{
+  border-color: #833b3b;
+}
+.edit-btn svg{
+  margin-top: -3px;
 }

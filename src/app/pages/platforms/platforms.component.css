@@ -4,6 +4,7 @@
   border-radius: 5px;
   padding: 15px 0 5px;
   margin: 15px 0;
+  transition: 0.5s;
 }
 .platform-row.present {
   border: 3px solid #316d39a6;
@@ -67,9 +68,12 @@
   float: right;
 }
 .btn-visit{
-  background-color: rgb(131, 59, 59);
-  border-color: #bb908c;
   font-size: bold;
   padding-left: 20px;
   padding-right: 20px;
+}
+.btn-visit, .btn-visit:hover, .btn-visit:active, .btn-visit:focus, .btn-visit{
+  background-color: rgb(131, 59, 59) !important;
+  border-color: #bb908c !important;
+  box-shadow: none !important;
 }

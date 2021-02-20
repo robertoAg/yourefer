@@ -2,7 +2,7 @@
 import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService, PlatformService } from '@app/_services';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@app/_models';
 import { UserService } from '@app/_services/user.service';
@@ -13,6 +13,7 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ['list.component.css']
 })
 export class ListComponent implements OnInit {
+  submitted: boolean;
   user: User;
   userByCode: User;
   canEdit = false;
@@ -22,7 +23,10 @@ export class ListComponent implements OnInit {
 
   platforms = null;
 
+  public platformsForm: FormArray;
+
   constructor(
+    private formBuilder: FormBuilder,
     private platformService: PlatformService,
     private route: ActivatedRoute,
     private router: Router,
@@ -41,6 +45,24 @@ export class ListComponent implements OnInit {
 
     this.accountService.user.subscribe(x => this.user = x);
 
+    this.platformsForm = this.formBuilder.array([]);
+  }
+
+  // tslint:disable-next-line:typedef
+  removeFormControl(i) {
+    const platformsArray = this.platformsForm as FormArray;
+    platformsArray.removeAt(i);
+  }
+
+  // tslint:disable-next-line:typedef
+  addPlatformFormControl(platform) {
+    const platformsArray = this.platformsForm as FormArray;
+    const arraylen = platformsArray.length;
+
+    const newUsergroup: FormGroup = this.formBuilder.group({
+      link: [platform.link, Validators.pattern(platform.validation)]
+    });
+    platformsArray.insert(arraylen, newUsergroup);
   }
 
   // tslint:disable-next-line:typedef
@@ -77,7 +99,7 @@ export class ListComponent implements OnInit {
           return uP.skuname === platform.skuname;
         });
       }
-      if (userPlatform) {
+      if (userPlatform && userPlatform.link) {
         platform.link = userPlatform.link;
         platform.linkOnInit = true;
       } else {
@@ -88,11 +110,28 @@ export class ListComponent implements OnInit {
 
     platforms.sort((a, b) => b.link.localeCompare(a.link));
 
+    platforms.forEach(platform => {
+      this.addPlatformFormControl(platform);
+    });
+
+    console.log(this.platformsForm.controls);
+
     return platforms;
   }
 
   // tslint:disable-next-line:typedef
-  savePlatformLink(platform) {
+  savePlatformLink(platform, i) {
+    console.log(platform);
+    console.log(i);
+    console.log(this.platformsForm.at(i).value);
+
+    this.submitted = true;
+    this.alertService.clear();
+    // stop here if form is invalid
+    if (this.platformsForm.invalid) {
+      return;
+    }
+
     if (!this.user.platforms) {
       this.user.platforms = [];
     }
@@ -100,13 +139,32 @@ export class ListComponent implements OnInit {
       return uP.skuname === platform.skuname;
     });
     if (userPlatform) {
-      userPlatform.link = platform.link;
+      userPlatform.link = this.platformsForm.at(i).value.link;
+      platform.link = this.platformsForm.at(i).value.link;
     } else {
       this.user.platforms.push({
         skuname: platform.skuname,
-        link: platform.link
+        link: this.platformsForm.at(i).value.link
       });
     }
+    platform.addingLink = false;
+    platform.editingLink = false;
+    if (platform.link || platform.link === '') {
+      platform.linkOnInit = true;
+    } else {
+      platform.linkOnInit = false;
+    }
+
+    this.platforms.sort((a, b) => b.link.localeCompare(a.link));
+
+    this.platformsForm = this.formBuilder.array([]);
+
+    this.platforms.forEach(p => {
+      this.addPlatformFormControl(p);
+    });
+
+    console.warn(this.platforms);
+
     this.saveUser();
   }
 
@@ -142,33 +200,4 @@ export class ListComponent implements OnInit {
     }
   }
 
-  // tslint:disable-next-line:typedef
-  onSubmit() {
-    // reset alerts on submit
-    this.alertService.clear();
-
-    // stop here if form is invalid
-    if (this.form.invalid) {
-      return;
-    }
-
-    this.loading = true;
-    this.updateUser();
-  }
-
-  // tslint:disable-next-line:typedef
-  private updateUser() {
-    this.accountService.update(this.user.id, this.form.value)
-      .pipe(first())
-      .subscribe({
-        next: () => {
-          this.alertService.success('Update successful', { keepAfterRouteChange: true });
-          this.router.navigate(['../../'], { relativeTo: this.route });
-        },
-        error: error => {
-          this.alertService.error(error);
-          this.loading = false;
-        }
-      });
-  }
 }

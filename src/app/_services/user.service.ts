@@ -23,4 +23,11 @@ export class UserService {
             .get(url, {params, headers: this.getHeaders()});
     }
 
+    getByUsername(username): any {
+        const params = new HttpParams();
+        const url = `${this.url}/username/${username}`;
+        return this.httpClient
+            .get(url, {params, headers: this.getHeaders()});
+    }
+
 }

@@ -10,6 +10,7 @@ const routes: Routes = [
     children: [
       { path: '', component: ListComponent },
       { path: ':code', component: ListComponent },
+      { path: 'of/:username', component: ListComponent },
     ]
   }
 ];

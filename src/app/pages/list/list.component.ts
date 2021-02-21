@@ -18,6 +18,7 @@ export class ListComponent implements OnInit {
   userByCode: User;
   canEdit = false;
   code: string;
+  username: string;
   form: FormGroup;
   loading = false;
 
@@ -40,7 +41,12 @@ export class ListComponent implements OnInit {
 
     // tslint:disable-next-line:no-shadowed-variable
     this.route.params.subscribe(routeParams => {
-      this.loadByCode(routeParams.code);
+      console.warn(routeParams);
+      if (routeParams.code) {
+        this.loadByCode(routeParams.code);
+      } else if (routeParams.username) {
+        this.loadByUsername(routeParams.username);
+      }
     });
 
     this.accountService.user.subscribe(x => this.user = x);
@@ -63,6 +69,31 @@ export class ListComponent implements OnInit {
       link: [platform.link, Validators.pattern(platform.validation)]
     });
     platformsArray.insert(arraylen, newUsergroup);
+  }
+
+  // tslint:disable-next-line:typedef
+  loadByUsername(username) {
+    this.userService
+      .getByUsername(username)
+      .subscribe(
+        val => {
+          console.log('Value emitted successfully', val);
+          this.userByCode = (val) ? val : {};
+          if (this.userByCode && this.user && this.user.username === this.userByCode.username) {
+            this.canEdit = true;
+          }
+          if (!sessionStorage.getItem('referredBy')) {
+            sessionStorage.setItem('referredBy', this.userByCode.username);
+          }
+          this.platformService.getAll()
+            .pipe(first())
+            .subscribe(platforms => this.platforms = this.addLink(platforms));
+        },
+        error => {
+          console.error('This line is never called ', error);
+        },
+        () => console.log('HTTP Observable completed...')
+      );
   }
 
   // tslint:disable-next-line:typedef

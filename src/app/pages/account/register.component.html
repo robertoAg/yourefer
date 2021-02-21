@@ -15,7 +15,7 @@
                 <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                     <div *ngIf="f.username.errors.required">Username is required</div>
                     <div *ngIf="f.username.errors.maxlength">Username max length is 16 characters</div>
-                    <div *ngIf="f.username.errors.pattern">Username must be numbers and chars starting by char.</div>
+                    <div *ngIf="f.username.errors.pattern">Username can contain numbers, letters, _ or -.</div>
                 </div>
             </div>
             <div class="form-group">

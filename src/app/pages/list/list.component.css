@@ -77,9 +77,6 @@
   border-color: #bb908c !important;
   box-shadow: none !important;
 }
-.mt--1 {
-  margin-top: -10px;
-}
 @media (min-width: 992px) {
   .lg-mt--1 {
     margin-top: -10px;
@@ -112,4 +109,28 @@
 }
 .edit-btn svg{
   margin-top: -3px;
+}
+.shareableInput.clicked{
+  box-shadow: 0 0 2px 5px rgb(63, 139, 67);
+}
+.shareableInput{
+  transition: 0.5s;
+}
+svg.clicked{
+  transition: 0.3s;
+}
+.clicked{
+  color: green;
+  transition: 0.5s;
+}
+.ts-white{
+  text-shadow: 0 0 2px white;
+}
+.c-transparent{
+  color: rgba(0,0,0,0);
+  text-shadow: 0 0 2px rgba(0,0,0,0);
+  transition: color 0.5s, text-shadow 1s;
+}
+.w-90{
+  width: 90%;
 }

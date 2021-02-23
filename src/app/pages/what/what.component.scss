@@ -15,6 +15,16 @@
 .bgc-red {
   background-color: #972c24cc;
 }
-.bgc-white{
-  background-color: #ffffff8c;
+.bgc-white {
+  background-color: #ffffffbd;
+}
+.decor {
+  display: inline-block;
+  border-top: 5px solid #972c24;
+  border-radius: 15px;
+  width: 70%;
+  height: 0;
+  margin: 10px auto;
+  left: 15%;
+  position: relative;
 }

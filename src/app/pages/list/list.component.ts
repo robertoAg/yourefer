@@ -6,7 +6,6 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@app/_models';
 import { UserService } from '@app/_services/user.service';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   templateUrl: 'list.component.html',
@@ -23,6 +22,9 @@ export class ListComponent implements OnInit {
   loading = false;
 
   platforms = null;
+
+  shareable = '';
+  shareableClicked = false;
 
   public platformsForm: FormArray;
 
@@ -41,7 +43,6 @@ export class ListComponent implements OnInit {
 
     // tslint:disable-next-line:no-shadowed-variable
     this.route.params.subscribe(routeParams => {
-      console.warn(routeParams);
       if (routeParams.code) {
         this.loadByCode(routeParams.code);
       } else if (routeParams.username) {
@@ -50,6 +51,8 @@ export class ListComponent implements OnInit {
     });
 
     this.accountService.user.subscribe(x => this.user = x);
+
+    this.shareable = location.host + '/list/of/' + this.user.username;
 
     this.platformsForm = this.formBuilder.array([]);
   }
@@ -229,6 +232,14 @@ export class ListComponent implements OnInit {
     } else {
       platformValidating.isValid = false;
     }
+  }
+
+  // tslint:disable-next-line:typedef
+  shareableClicking() {
+    this.shareableClicked = true;
+    setTimeout(() => {
+      this.shareableClicked = false;
+    }, 500);
   }
 
 }

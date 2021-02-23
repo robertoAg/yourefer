@@ -1,6 +1,6 @@
 ﻿<h1 class="text-center c-white mb-4">
   <span class="bg-red c-white mr-2 p-2 ff-lg promo-text">Promo ! </span>
-  <span class="c-red">First </span><span class="t-shadow">Users</span>
+  <span class="c-red">Firsts </span><span class="t-shadow">Users</span>
 </h1>
 <!-- <a routerLink="add" class="btn btn-sm btn-success mb-2">Add User</a> -->
 <div class="container-white mb-2 p-4 text-center fs-18">
@@ -19,16 +19,14 @@
       <table class="table container-white">
         <thead>
           <tr>
-            <th style="width: 10%" class="text-center">N</th>
-            <th style="width: 30%">Created Date</th>
-            <th style="width: 30%">Username</th>
+            <th style="width: 20%" class="text-center">N</th>
+            <th style="width: 50%">Username</th>
             <th style="width: 30%"></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let user of users; index as i">
             <td class="text-center">{{i+1}}</td>
-            <td>{{user.createdDate | date}}</td>
             <td>{{user.username}}</td>
             <td style="white-space: nowrap">
               <a routerLink="../list/of/{{user.username}}" class="btn btn-sm btn-primary mr-1">

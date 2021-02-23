@@ -1,6 +1,23 @@
 ﻿<h1 *ngIf="!canEdit" class="text-center c-red">The list of <span class="c-white t-shadow"
     *ngIf="userByCode">{{userByCode.username}}</span></h1>
-<h1 *ngIf="canEdit" class="text-center c-red">My <span class="c-white t-shadow" *ngIf="userByCode">List</span></h1>
+<div *ngIf="canEdit" class="container">
+  <h1 class="text-center c-red">My <span class="c-white t-shadow" *ngIf="userByCode">List</span></h1>
+  <div class="row">
+    <div class="col-md-8 offset-md-2 col-12 text-center" (click)="shareableClicking()">
+      <input class="form-control w-90 d-inline-block mr-2 cur-pointer shareableInput"
+        [ngClass]="{'clicked': shareableClicked}" type="text" value="{{shareable}}" readonly
+        [cdkCopyToClipboard]="shareable">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+        [ngClass]="{'clicked': shareableClicked}" class="bi bi-clipboard" viewBox="0 0 16 16">
+        <path
+          d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+        <path
+          d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+      </svg>
+      <div class="c-green font-weight-bold d-inline ml-1 ts-white" [ngClass]="{'c-transparent': !shareableClicked}">Copied!</div>
+    </div>
+  </div>
+</div>
 <div class="container">
   <form [formGroup]="platformsForm">
     <div class="row platform-row" *ngFor="let platform of platforms; let i = index"
@@ -84,12 +101,14 @@
           <label>My link</label>
           <input type="text" formControlName="link" class="form-control"
             [ngClass]="{ 'is-invalid': submitted && platformsForm.controls[i].controls.link && platformsForm.controls[i].controls.link.errors }" />
-          <div *ngIf="submitted && platformsForm.controls[i].controls.link && platformsForm.controls[i].controls.link.errors"
+          <div
+            *ngIf="submitted && platformsForm.controls[i].controls.link && platformsForm.controls[i].controls.link.errors"
             class="invalid-feedback">
-            <div *ngIf="platformsForm.controls[i].controls.link.errors.pattern">{{ platform.validation | parseValidationPipe }}</div>
+            <div *ngIf="platformsForm.controls[i].controls.link.errors.pattern">{{ platform.validation |
+              parseValidationPipe }}</div>
           </div>
           <div class="btn btn-success btn-save-link" (click)="savePlatformLink(platform, i)">Save</div>
-<!--
+          <!--
           <input type="text" class="form-control" (focus)="edit(platform)" (change)="validate(platform)"
             [(ngModel)]="platform.link" [ngModelOptions]="{standalone: true}" [compareWith]="compareFn">
 

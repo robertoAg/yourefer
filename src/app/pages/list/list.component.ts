@@ -52,7 +52,7 @@ export class ListComponent implements OnInit {
 
     this.accountService.user.subscribe(x => this.user = x);
 
-    this.shareable = location.host + '/list/of/' + this.user.username;
+    this.shareable = this.user ? location.host + '/list/of/' + this.user.username : '';
 
     this.platformsForm = this.formBuilder.array([]);
   }

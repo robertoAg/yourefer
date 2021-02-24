@@ -7,7 +7,6 @@
   src: url("../../../assets/fonts/promo-font/Borutta Group - Promo Bold.otf");
   font-weight: bold;
 }
-
 .f-promo {
   font-family: "Promo";
 }
@@ -20,11 +19,15 @@
 }
 .decor {
   display: inline-block;
-  border-top: 5px solid #972c24;
+  box-shadow: 0 0 10px white;
+  border-top: 5px solid #000000;
   border-radius: 15px;
   width: 70%;
   height: 0;
   margin: 10px auto;
   left: 15%;
   position: relative;
+}
+.mw-70px{
+  max-width: 70px;
 }

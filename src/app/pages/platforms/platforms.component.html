@@ -5,6 +5,14 @@
         <div class="col-sm-12 col-lg-3">
             <h5 class="text-center text-capitalize">{{platform.name}}</h5>
             <img class="logo-platform img-thumbnail" src="assets/img/platforms/{{platform.skuname}}/icon.jpg">
+            <div class="col-12 text-center">
+                <div class="categories-container">
+                    <div class="category category-{{category}}" *ngFor="let category of platform.categories">
+                        <img class="offer-category-icon" src="../../../assets/img/icons/categories/{{category}}-icon.png">
+                        {{category}}
+                    </div>
+                </div> 
+            </div>
         </div>
         <div class="col-sm-12 col-lg-9">
             <div class="description text-center m-3">
@@ -31,24 +39,3 @@
         </div>
     </div>
 </div>
-<table class="table table-striped d-none">
-    <thead>
-        <tr>
-            <th style="width: 30%">Name</th>
-            <th style="width: 30%">Default Link</th>
-            <th style="width: 30%">Link</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let platform of platforms">
-            <td>{{platform.name}}</td>
-            <td>{{platform.defaultLink}}</td>
-            <td>{{platform.link}}</td>
-        </tr>
-        <tr *ngIf="!platforms">
-            <td colspan="4" class="text-center">
-                <span class="spinner-border spinner-border-lg align-center"></span>
-            </td>
-        </tr>
-    </tbody>
-</table>

@@ -134,3 +134,58 @@ svg.clicked{
 .w-90{
   width: 90%;
 }
+
+
+
+.categories-container {
+  margin: 10px 0;
+  padding: 5px 0;
+  border-top: 1px solid black;
+}
+div.category {
+  display: inline-block;
+  font-family: 'Nunito', sans-serif;
+  text-transform: capitalize;
+  font-size: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 3px 5px;
+  margin: 2px;
+}
+div.category.category-cryptocoin{
+  border: 2px solid #ffd355;
+  background-color: #ffee9c;
+}
+div.category.category-money{
+  border: 2px solid rgb(54, 100, 56);
+  background-color: #aee0bd;
+}
+div.category.category-video{
+  border: 2px solid rgb(139, 37, 37);
+  background-color: #e8a9ae;
+}
+div.category.category-games{
+  border: 2px solid rgb(99, 27, 105);
+  background-color: #ffcefd;
+}
+div.category.category-app{
+  border: 2px solid rgb(27, 67, 105);
+  background-color: #c3d3f3;
+}
+div.category.category-ads{
+  border: 2px solid rgb(76, 83, 88);
+  background-color: rgb(184, 187, 190);
+}
+div.category.category-faucet{
+  border: 2px solid rgb(117, 119, 121);
+  background-color: rgb(222, 224, 226);
+}
+div.category.category-news{
+  border: 2px solid rgb(122, 101, 89);
+  background-color: rgb(224, 198, 158);
+}
+.offer-category-icon{
+  width: 15px;
+  height: auto;
+  margin-top: -2px;
+}

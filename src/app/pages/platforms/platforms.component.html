@@ -1,6 +1,13 @@
 ﻿<h1 class="text-center c-white title"><span class="c-red">All </span><span class="t-shadow">Platforms</span></h1>
 <div class="container">
-    <div class="row platform-row" *ngFor="let platform of platforms"
+  <div class="row">
+    <div class="col-12">
+      <app-filter [items]="categories" (filtering)="filtering($event)"></app-filter>
+    </div>
+  </div>
+</div>
+<div class="container">
+    <div class="row platform-row" *ngFor="let platform of filteredPlatforms"
         [ngClass]="{'present': platform.link, 'adding': platform.addingLink, 'editing': platform.editingLink}">
         <div class="col-sm-12 col-lg-3">
             <h5 class="text-center text-capitalize">{{platform.name}}</h5>

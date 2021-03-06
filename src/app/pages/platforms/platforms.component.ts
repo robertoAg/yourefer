@@ -17,6 +17,8 @@ export class PlatformsComponent implements OnInit {
   loading = false;
 
   platforms = null;
+  filteredPlatforms;
+  categories = [];
 
   constructor(
     private platformService: PlatformService,
@@ -40,7 +42,31 @@ export class PlatformsComponent implements OnInit {
 
     this.platformService.getAll()
       .pipe(first())
-      .subscribe(platforms => this.platforms = this.addLink(platforms));
+      .subscribe(platforms => {
+        this.platforms = this.addLink(platforms);
+        this.filteredPlatforms = [...this.platforms];
+        this.categories = this.extractCategories(platforms);
+      });
+  }
+
+  extractCategories(platforms): any[] {
+    const categories = platforms.map((platform) => {
+      return platform.categories;
+    });
+    return [...new Set(categories.flat(1))];
+  }
+
+  // tslint:disable-next-line:typedef
+  filtering(categories) {
+    this.filteredPlatforms = this.platforms.filter(platform => {
+      let i = 0;
+      let aux = false;
+      while (categories.length > i && !aux) {
+        aux = platform.categories.includes(categories[i]);
+        i++;
+      }
+      return aux;
+    });
   }
 
   // tslint:disable-next-line:typedef

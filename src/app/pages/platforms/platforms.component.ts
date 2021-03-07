@@ -20,6 +20,9 @@ export class PlatformsComponent implements OnInit {
   filteredPlatforms;
   categories = [];
 
+  filteredSuply = 0;
+  totalSuply = 0;
+
   constructor(
     private platformService: PlatformService,
     private route: ActivatedRoute,
@@ -45,6 +48,8 @@ export class PlatformsComponent implements OnInit {
       .subscribe(platforms => {
         this.platforms = this.addLink(platforms);
         this.filteredPlatforms = [...this.platforms];
+        this.totalSuply = this.platforms.length;
+        this.filteredSuply = this.filteredPlatforms.length;
         this.categories = this.extractCategories(platforms);
       });
   }
@@ -67,6 +72,7 @@ export class PlatformsComponent implements OnInit {
       }
       return aux;
     });
+    this.filteredSuply = this.filteredPlatforms.length;
   }
 
   // tslint:disable-next-line:typedef

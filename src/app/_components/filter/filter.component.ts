@@ -11,6 +11,8 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 export class FilterComponent implements OnChanges {
 
   @Input() items: string[];
+  @Input() filteredSuply = 0;
+  @Input() totalSuply = 0;
   filtered: string[];
 
   @Output() filtering = new EventEmitter<any>();
@@ -18,8 +20,14 @@ export class FilterComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.items = changes.items.currentValue;
-    this.filtered = [...this.items];
+    if (changes.items) {
+      this.items = changes.items.currentValue;
+      this.filtered = [...this.items];
+    } else if (changes.filteredSuply) {
+      this.filteredSuply = changes.filteredSuply.currentValue;
+    } else {
+      this.totalSuply = changes.totalSuply.currentValue;
+    }
   }
 
   // tslint:disable-next-line:typedef

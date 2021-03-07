@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <app-filter [items]="categories" (filtering)="filtering($event)"></app-filter>
+      <app-filter [items]="categories" [totalSuply]="totalSuply" [filteredSuply]="filteredSuply" (filtering)="filtering($event)"></app-filter>
     </div>
   </div>
 </div>

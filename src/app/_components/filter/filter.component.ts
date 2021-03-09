@@ -33,6 +33,7 @@ export class FilterComponent implements OnChanges {
   // tslint:disable-next-line:typedef
   selectAll() {
     this.filtered = [...this.items];
+    this.filtering.emit(this.filtered);
   }
   // tslint:disable-next-line:typedef
   select(item) {

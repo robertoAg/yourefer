@@ -142,22 +142,48 @@ export class ListComponent implements OnInit {
       }
     });
 
-    platforms.sort((a, b) => b.link.localeCompare(a.link));
+    /* ordenar no solo si tienen link tb por como las tiene ordenadas el usuario */
+    platforms.sort(this.orderPlatforms);
 
     platforms.forEach(platform => {
       this.addPlatformFormControl(platform);
     });
 
-    console.log(this.platformsForm.controls);
-
     return platforms;
   }
 
   // tslint:disable-next-line:typedef
+  orderPlatforms = (a, b) => {
+    const userPlatformA = this.user.platforms.find(uP => {
+      return uP.skuname === a.skuname;
+    });
+    const userPlatformB = this.user.platforms.find(uP => {
+      return uP.skuname === b.skuname;
+    });
+    if (userPlatformA) {
+      if (userPlatformB) {
+        if (!userPlatformA.link) {
+          return 1;
+        }
+        if (!userPlatformB.link) {
+          return -1;
+        }
+        const userPlatformAIndex = this.user.platforms.indexOf(userPlatformA);
+        const userPlatformBIndex = this.user.platforms.indexOf(userPlatformB);
+        if (userPlatformAIndex < userPlatformBIndex) {
+          return -1;
+        } else {
+          return 1;
+        }
+      } else {
+        return -1;
+      }
+    }
+    return 1;
+  }
+
+  // tslint:disable-next-line:typedef
   savePlatformLink(platform, i) {
-    console.log(platform);
-    console.log(i);
-    console.log(this.platformsForm.at(i).value);
 
     this.submitted = true;
     this.alertService.clear();
@@ -189,15 +215,9 @@ export class ListComponent implements OnInit {
       platform.linkOnInit = false;
     }
 
-    this.platforms.sort((a, b) => b.link.localeCompare(a.link));
+    this.platforms.sort(this.orderPlatforms);
 
-    this.platformsForm = this.formBuilder.array([]);
-
-    this.platforms.forEach(p => {
-      this.addPlatformFormControl(p);
-    });
-
-    console.warn(this.platforms);
+    this.resetPlatformsForm();
 
     this.saveUser();
   }
@@ -222,18 +242,6 @@ export class ListComponent implements OnInit {
     platform.editing = true;
   }
 
-  validate(platformValidating): void {
-    const originalPlatform = this.platforms.find(platform => {
-      return platform.skuname === platformValidating.skuname;
-    });
-    platformValidating.link = platformValidating.link.trim();
-    if (platformValidating.link.includes(platformValidating.validation, 0) && platformValidating.link.length < 70) {
-      platformValidating.isValid = true;
-    } else {
-      platformValidating.isValid = false;
-    }
-  }
-
   // tslint:disable-next-line:typedef
   shareableClicking() {
     this.shareableClicked = true;
@@ -242,4 +250,37 @@ export class ListComponent implements OnInit {
     }, 500);
   }
 
+  order(from, to, platform): void {
+    this.platforms.splice(from, 1);
+    this.platforms.splice(to, 0, platform);
+    const userPlatform = this.user.platforms.find(uP => {
+      return uP.skuname === platform.skuname;
+    });
+    if (userPlatform) {
+      const userPlatformIndexFrom = this.user.platforms.indexOf(userPlatform);
+      let userPlatformIndexTo = userPlatformIndexFrom + 1;
+      if (from > to) {
+        userPlatformIndexTo = userPlatformIndexFrom - 1;
+        while (!this.user.platforms[userPlatformIndexTo].link) {
+          userPlatformIndexTo--;
+        }
+      } else {
+        while (!this.user.platforms[userPlatformIndexTo].link) {
+          userPlatformIndexTo++;
+        }
+      }
+      this.user.platforms.splice(userPlatformIndexFrom, 1);
+      this.user.platforms.splice(userPlatformIndexTo, 0, userPlatform);
+    }
+
+    this.resetPlatformsForm();
+    this.saveUser();
+  }
+
+  resetPlatformsForm(): void {
+    this.platformsForm = this.formBuilder.array([]);
+    this.platforms.forEach(p => {
+      this.addPlatformFormControl(p);
+    });
+  }
 }

@@ -134,6 +134,17 @@ svg.clicked{
 .w-90{
   width: 90%;
 }
+.cursor-def{
+  cursor: default;
+}
+
+.order-list{
+  z-index: 2;
+  width: 20px;
+}
+.order-arrow{
+  cursor: pointer;
+}
 
 
 

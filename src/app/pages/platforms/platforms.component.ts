@@ -39,7 +39,6 @@ export class PlatformsComponent implements OnInit {
         .pipe(first())
         .subscribe(x => this.form.patchValue(x));
 
-      console.log(this.accountService.userValue);
       this.accountService.user.subscribe(x => this.user = x);
     }
 

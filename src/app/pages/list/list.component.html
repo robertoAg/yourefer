@@ -14,7 +14,8 @@
         <path
           d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
       </svg>
-      <div class="c-green font-weight-bold d-inline ml-1 ts-white" [ngClass]="{'c-transparent': !shareableClicked}">Copied!</div>
+      <div class="c-green font-weight-bold d-inline ml-1 ts-white" [ngClass]="{'c-transparent': !shareableClicked}">
+        Copied!</div>
     </div>
   </div>
 </div>
@@ -23,7 +24,25 @@
     <div class="row platform-row" *ngFor="let platform of platforms; let i = index"
       [ngClass]="{'present': platform.link, 'adding': platform.addingLink, 'editing': platform.editingLink}">
       <div class="col-12">
-        <div class="text-right c-blue mt--1" *ngIf="canEdit && platform.linkOnInit">
+        <div class="text-right c-blue mt--1" *ngIf="canEdit && platform.linkOnInit && platform.link !== ''">
+          <div class="order-list float-left position-absolute text-center">
+            <span (click)="order(i, i-1, platform)" *ngIf="i !== 0" class="order-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                <path
+                  d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+              </svg>
+            </span>
+            <span class="cursor-def">{{i + 1}}</span>
+            <span (click)="order(i, i+1, platform)" *ngIf="platforms.length > i+1 && platforms[i+1].linkOnInit && platforms[i+1].link !== ''"
+              class="order-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path
+                  d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+              </svg>
+            </span>
+          </div>
           <div>
             <span *ngIf="!platform.editingLink" (click)="platform.editingLink = !platform.editingLink"
               class="edit-btn px-1">
@@ -48,7 +67,7 @@
             </span>
           </div>
         </div>
-        <div class="text-right c-green mt--1" *ngIf="canEdit && !platform.linkOnInit"
+        <div class="text-right c-green mt--1" *ngIf="canEdit && (!platform.linkOnInit || platform.link === '')"
           (click)="platform.addingLink = !platform.addingLink">
           <span *ngIf="platform.addingLink" class="close-add-btn px-1 c-red">
             Adding
@@ -70,10 +89,10 @@
           </span>
         </div>
       </div>
-      <div class="col-sm-12 col-lg-3 lg-mt--1 mb-2 text-center">
+      <div class="col-sm-12 col-lg-3 lg-mt--1 text-center">
         <h5 class="text-capitalize">{{platform.name}}</h5>
         <img class="logo-platform img-thumbnail" src="assets/img/platforms/{{platform.skuname}}/icon.jpg">
-        <span class="my-1 c-blue fs-13" *ngIf="canEdit && platform.linkOnInit">
+        <span class="my-1 c-blue fs-13" *ngIf="canEdit && platform.linkOnInit && platform.link !== ''">
           Already on my list
           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-check-circle"
             viewBox="0 0 16 16">
@@ -83,16 +102,16 @@
           </svg>
         </span>
         <div class="col-12 text-center">
-            <div class="categories-container">
-                <div class="category category-{{category}}" *ngFor="let category of platform.categories">
-                    <img class="offer-category-icon" src="../../../assets/img/icons/categories/{{category}}-icon.png">
-                    {{category}}
-                </div>
-            </div> 
+          <div class="categories-container">
+            <div class="category category-{{category}}" *ngFor="let category of platform.categories">
+              <img class="offer-category-icon" src="../../../assets/img/icons/categories/{{category}}-icon.png">
+              {{category}}
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-sm-12 col-lg-9">
-        <div class="description text-center m-3">
+        <div class="description text-center mx-3 mb-3 mt-2">
           {{platform.description}}
         </div>
         <div class="link-go text-center">
@@ -104,7 +123,7 @@
       </div>
 
       <div class="col-12 col-add-link"
-        *ngIf="platformsForm && platformsForm.controls[i] && ((!platform.linkOnInit && platform.addingLink) || platform.linkOnInit && platform.editingLink)">
+        *ngIf="platformsForm && platformsForm.controls[i] && (((!platform.linkOnInit || platform.link === '') && platform.addingLink) || platform.linkOnInit && platform.editingLink)">
         <div [formGroup]="platformsForm.controls[i]">
           <label>My link</label>
           <input type="text" formControlName="link" class="form-control"
@@ -116,38 +135,8 @@
               parseValidationPipe }}</div>
           </div>
           <div class="btn btn-success btn-save-link" (click)="savePlatformLink(platform, i)">Save</div>
-          <!--
-          <input type="text" class="form-control" (focus)="edit(platform)" (change)="validate(platform)"
-            [(ngModel)]="platform.link" [ngModelOptions]="{standalone: true}" [compareWith]="compareFn">
-
-          <p *ngIf="platform.isValid === false && platform.link !== ''" class="info-error">
-            Link must start by {{platform.validation}}
-          </p>
-          <button class="btn btn-danger btn-save-link"
-            (click)="platform.editingLink = false; platform.addingLink = false">Cancel</button>
-          <button class="btn btn-success btn-save-link" [disabled]="!platform.isValid">Save</button>
--->
         </div>
       </div>
     </div>
   </form>
 </div>
-<!--
-<form [formGroup]="platformsForm" (ngSubmit)="onSubmit()">
-  <ng-container *ngFor="let platformFormGroup of platformsForm.controls; let i = index">
-    <div [formGroup]="platformFormGroup" class="form-group">
-      <label>
-        My link:
-        <input type="text" formControlName="link" class="form-control" [ngClass]="{ 'is-invalid': submitted && platformFormGroup.controls.link.errors }" />
-        <div *ngIf="submitted && platformFormGroup.controls.link.errors" class="invalid-feedback">
-            <div *ngIf="platformFormGroup.controls.link.errors.required">Password is required</div>
-        </div>
-      </label>
-      <label>
-        <button (click)="removeFormControl(i)">remove formGroup</button>
-      </label>
-    </div>
-  </ng-container>
-  <button type="submit">console log form value</button>
-</form>
--->

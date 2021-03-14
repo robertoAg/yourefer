@@ -88,4 +88,16 @@ export class AccountService {
   verify(token: string) {
     return this.http.post(`${environment.apiUrl}/users/verify-email`, { token });
   }
+
+  forgotPassword(email: string) {
+    return this.http.post(`${environment.apiUrl}/users/forgot-password`, { email });
+  }
+
+  validateResetToken(token: string) {
+    return this.http.post(`${environment.apiUrl}/users/validate-reset-token`, { token });
+  }
+
+  resetPassword(token: string, password: string, confirmPassword: string) {
+    return this.http.post(`${environment.apiUrl}/users/reset-password`, { token, password, confirmPassword });
+  }
 }

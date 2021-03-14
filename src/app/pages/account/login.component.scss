@@ -1,9 +1,11 @@
 .btn-link{
   color: #962c24;
 }
-.btn-primary {
-  background-color: #972c24;
-  border-color: #842f29;
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary{
+  color: #fff;
+  background-color: #972c24 !important;
+  border-color: #842f29 !important;
+  box-shadow: none !important;
 }
 .card{
   background-color: #ffffffb5;

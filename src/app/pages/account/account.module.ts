@@ -7,18 +7,22 @@ import { LayoutComponent } from './layout.component';
 import { LoginComponent } from './login.component';
 import { RegisterComponent } from './register.component';
 import { VerifyComponent } from './verify.component';
+import { ForgotPasswordComponent } from './forgot-password.component';
+import { ResetPasswordComponent } from './reset-password.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        AccountRoutingModule
-    ],
-    declarations: [
-        LayoutComponent,
-        LoginComponent,
-        RegisterComponent,
-        VerifyComponent
-    ]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    AccountRoutingModule
+  ],
+  declarations: [
+    LayoutComponent,
+    LoginComponent,
+    RegisterComponent,
+    VerifyComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
+  ]
 })
 export class AccountModule { }
